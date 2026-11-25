@@ -1,0 +1,38 @@
+name: Validate & Package CF7 Pro Suite
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate CF7 Pro forms and templates
+        run: npm run validate
+
+      - name: Package WordPress Plugin ZIP
+        run: |
+          cd wordpress-plugin
+          zip -r ../cf7-pro-suite.zip cf7-pro-suite/
+
+      - name: Upload Plugin ZIP Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cf7-pro-suite-wp-plugin
+          path: cf7-pro-suite.zip
+
+      - name: Attach ZIP to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: cf7-pro-suite.zip

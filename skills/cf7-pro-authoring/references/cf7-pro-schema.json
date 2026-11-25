@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CF7 Pro Suite Attribute & Tag Reference",
+  "version": "1.0.0",
+  "attributes": {
+    "data-cf7p-step": "Step label string to split the form into a multi-step wizard",
+    "data-cf7p-show-if": "Conditional expression using field names and operators (=, !=, *=, >, >=, <, <=, &&, ||)",
+    "data-cf7p-hide-if": "Inverse conditional expression",
+    "data-cf7p-calc": "Safe math expression referencing field names, +, -, *, /, (), round(), min(), max()",
+    "data-cf7p-prefix": "Prefix string for calculator or range output",
+    "data-cf7p-suffix": "Suffix string for calculator or range output",
+    "data-cf7p-decimals": "Integer decimal precision for calculator output",
+    "data-cf7p-target-input": "Name of CF7 [hidden] field to sync calculated result into",
+    "data-cf7p-whatsapp": "Target phone number in international format for post-submit WhatsApp redirect",
+    "data-cf7p-whatsapp-template": "Message template supporting {field_name} placeholders",
+    "data-cf7p-redirect": "URL to redirect to on wpcf7mailsent",
+    "data-cf7p-success-modal": "Confirmation text shown in an animated overlay on wpcf7mailsent"
+  },
+  "classes": [
+    "cf7p-theme-modern",
+    "cf7p-theme-glass",
+    "cf7p-theme-dark",
+    "cf7p-cards",
+    "cf7p-dropzone",
+    "cf7p-range",
+    "cf7p-calc-box",
+    "cf7p-btn"
+  ],
+  "additionalSettings": {
+    "cf7p_webhook": "URL receiving non-blocking JSON POST on wpcf7_mail_sent",
+    "cf7p_disable_storage": "Set to true to disable local cf7p_entry CPT saving"
+  }
+}

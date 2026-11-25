@@ -1,0 +1,24 @@
+{
+  "name": "cf7-pro-suite",
+  "displayName": "CF7 Pro Suite & Authoring Skill",
+  "version": "1.0.0",
+  "description": "Free open-source WordPress plugin & Universal AI Agent Skill that upgrades Contact Form 7 with multi-step wizards, conditional logic, live quote calculators, UI cards, drag-and-drop uploads, WhatsApp redirects, local entries CSV, and JSON webhooks.",
+  "skills": [
+    "./skills"
+  ],
+  "author": {
+    "name": "Morel Urbain",
+    "url": "https://github.com/urbainmorel"
+  },
+  "homepage": "https://github.com/urbainmorel/cf7-pro-suite",
+  "repository": "https://github.com/urbainmorel/cf7-pro-suite",
+  "license": "GPL-2.0-or-later AND MIT",
+  "keywords": [
+    "wordpress",
+    "contact-form-7",
+    "multi-step",
+    "calculator",
+    "conditional-logic",
+    "webhooks"
+  ]
+}

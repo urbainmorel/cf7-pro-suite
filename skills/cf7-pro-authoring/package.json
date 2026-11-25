@@ -1,0 +1,10 @@
+{
+  "name": "cf7-pro-authoring",
+  "version": "1.0.0",
+  "description": "Universal AI Agent Skill for Contact Form 7 + CF7 Pro Suite forms",
+  "scripts": {
+    "validate": "node scripts/validate-cf7.js --skill"
+  },
+  "license": "MIT",
+  "type": "commonjs"
+}

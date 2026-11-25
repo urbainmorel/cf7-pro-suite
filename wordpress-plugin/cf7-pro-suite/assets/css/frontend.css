@@ -1,0 +1,255 @@
+/* CF7 Pro Suite — Modern UI Skins, Multi-Step, Cards, Dropzone & Calculator */
+
+.cf7p-is-hidden {
+	display: none !important;
+}
+
+.cf7p-field-invalid input,
+.cf7p-field-invalid select,
+.cf7p-field-invalid textarea {
+	border-color: #ef4444 !important;
+	box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Themes (Modern / Glass / Dark) */
+.cf7p-theme-modern,
+.cf7p-theme-glass,
+.cf7p-theme-dark {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.cf7p-theme-glass {
+	padding: 2rem;
+	border-radius: 24px;
+	background: rgba(15, 23, 42, 0.65);
+	backdrop-filter: blur(18px) saturate(180%);
+	-webkit-backdrop-filter: blur(18px) saturate(180%);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	color: #f8fafc;
+}
+
+.cf7p-theme-modern input[type="text"],
+.cf7p-theme-modern input[type="email"],
+.cf7p-theme-modern input[type="tel"],
+.cf7p-theme-modern input[type="number"],
+.cf7p-theme-modern select,
+.cf7p-theme-modern textarea,
+.cf7p-theme-glass input[type="text"],
+.cf7p-theme-glass input[type="email"],
+.cf7p-theme-glass input[type="tel"],
+.cf7p-theme-glass input[type="number"],
+.cf7p-theme-glass select,
+.cf7p-theme-glass textarea {
+	width: 100%;
+	padding: 0.8rem 1rem;
+	border-radius: 12px;
+	border: 1px solid rgba(148, 163, 184, 0.35);
+	background: rgba(255, 255, 255, 0.06);
+	color: inherit;
+	font-size: 0.95rem;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cf7p-theme-modern input:focus,
+.cf7p-theme-modern select:focus,
+.cf7p-theme-modern textarea:focus,
+.cf7p-theme-glass input:focus,
+.cf7p-theme-glass select:focus,
+.cf7p-theme-glass textarea:focus {
+	outline: none;
+	border-color: #38bdf8;
+	box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+/* Progress Bar */
+.cf7p-progress {
+	margin-bottom: 1.25rem;
+}
+
+.cf7p-progress-labels {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	margin-bottom: 0.6rem;
+	font-size: 0.85rem;
+}
+
+.cf7p-step-pill {
+	opacity: 0.55;
+	font-weight: 500;
+	transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.cf7p-step-pill.is-active {
+	opacity: 1;
+	font-weight: 700;
+	color: #38bdf8;
+}
+
+.cf7p-step-pill.is-done {
+	opacity: 0.85;
+}
+
+.cf7p-progress-bar {
+	height: 6px;
+	border-radius: 999px;
+	background: rgba(148, 163, 184, 0.25);
+	overflow: hidden;
+}
+
+.cf7p-progress-fill {
+	height: 100%;
+	width: 0;
+	border-radius: 999px;
+	background: linear-gradient(90deg, #38bdf8, #818cf8);
+	transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cf7p-step-nav {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.cf7p-btn {
+	appearance: none;
+	padding: 0.75rem 1.4rem;
+	border-radius: 12px;
+	border: 1px solid rgba(148, 163, 184, 0.35);
+	background: #0f172a;
+	color: #f8fafc;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cf7p-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+}
+
+/* Clickable Radio & Checkbox Cards */
+.cf7p-cards .wpcf7-radio,
+.cf7p-cards .wpcf7-checkbox {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 0.75rem;
+}
+
+.cf7p-cards .wpcf7-list-item {
+	margin: 0;
+	padding: 1rem;
+	border-radius: 14px;
+	border: 1px solid rgba(148, 163, 184, 0.35);
+	background: rgba(255, 255, 255, 0.04);
+	cursor: pointer;
+	transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.cf7p-cards .wpcf7-list-item:hover {
+	transform: translateY(-2px);
+	border-color: rgba(56, 189, 248, 0.6);
+}
+
+.cf7p-cards .wpcf7-list-item.is-checked {
+	border-color: #38bdf8;
+	background: rgba(56, 189, 248, 0.14);
+	box-shadow: 0 10px 24px rgba(56, 189, 248, 0.18);
+}
+
+.cf7p-cards .wpcf7-list-item label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	width: 100%;
+	font-weight: 600;
+}
+
+/* Drag & Drop File Zone */
+.cf7p-dropzone {
+	position: relative;
+	display: grid;
+	place-items: center;
+	padding: 1.75rem;
+	border-radius: 16px;
+	border: 2px dashed rgba(148, 163, 184, 0.45);
+	text-align: center;
+	transition: border-color 0.2s ease, background 0.2s ease;
+	cursor: pointer;
+}
+
+.cf7p-dropzone.is-dragover,
+.cf7p-dropzone.has-file {
+	border-color: #38bdf8;
+	background: rgba(56, 189, 248, 0.08);
+}
+
+.cf7p-dropzone input[type="file"] {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+}
+
+/* Range Bubble */
+.cf7p-range {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+}
+
+.cf7p-range input[type="range"] {
+	flex: 1;
+}
+
+.cf7p-range-bubble {
+	padding: 0.25rem 0.65rem;
+	border-radius: 999px;
+	background: rgba(56, 189, 248, 0.16);
+	font-weight: 700;
+	font-size: 0.85rem;
+	white-space: nowrap;
+}
+
+/* Calculator Output Box */
+.cf7p-calc-box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 1.25rem;
+	border-radius: 14px;
+	background: rgba(56, 189, 248, 0.12);
+	border: 1px solid rgba(56, 189, 248, 0.35);
+	font-weight: 700;
+	font-size: 1.15rem;
+}
+
+/* Success Modal */
+.cf7p-success-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	display: grid;
+	place-items: center;
+	padding: 1.5rem;
+	background: rgba(2, 6, 23, 0.72);
+	backdrop-filter: blur(8px);
+}
+
+.cf7p-success-card {
+	max-width: 440px;
+	width: 100%;
+	padding: 2rem;
+	border-radius: 20px;
+	background: #0f172a;
+	color: #f8fafc;
+	text-align: center;
+	box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}

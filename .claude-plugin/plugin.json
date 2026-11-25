@@ -1,0 +1,12 @@
+{
+  "name": "cf7-pro-suite",
+  "version": "1.0.0",
+  "description": "Universal AI Agent Skill for building Contact Form 7 Pro Suite forms (multi-step, conditional logic, live calculators, UI cards, webhooks).",
+  "author": {
+    "name": "Morel Urbain",
+    "url": "https://github.com/urbainmorel"
+  },
+  "repository": "https://github.com/urbainmorel/cf7-pro-suite",
+  "license": "MIT",
+  "skills": "./skills/"
+}
