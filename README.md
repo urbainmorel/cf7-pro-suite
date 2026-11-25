@@ -8,7 +8,7 @@
 
 | Feature | How it works | Overhead on non-form pages |
 | :--- | :--- | :--- |
-| **Smart International Phone** | `.cf7p-smart-phone` adds country flags, dial codes & timezone auto-detection (0 external APIs) | 0 bytes |
+| **Smart International Phone** | `.cf7p-smart-phone` adds country flags, dial codes, Cloudflare `HTTP_CF_IPCOUNTRY` IP detection + timezone fallback (0 external APIs) | 0 bytes |
 | **Digital Signature, Star Rating & Masks** | `.cf7p-signature` (touch/mouse canvas), `.cf7p-rating`, `data-cf7p-mask`, `.cf7p-toggle`, `data-cf7p-maxlength` | 0 bytes |
 | **Smart Date, Slots & Repeater** | `.cf7p-smart-date` (block closed days + time slot pills) & `data-cf7p-repeater` dynamic rows | 0 bytes |
 | **Cloudflare Turnstile & Smart reCAPTCHA** | Native `[cf7p_turnstile]` (auto or manual) + blocks CF7's heavy reCAPTCHA script on non-form pages | 0 bytes |
