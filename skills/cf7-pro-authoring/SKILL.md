@@ -59,9 +59,13 @@ The runtime automatically builds the animated progress bar, step pills, `‚Üê Pr√
 - `<div data-cf7p-redirect="https://example.com/merci"></div>` -> redirects after `wpcf7mailsent`.
 - `<div data-cf7p-success-modal="Merci ! Votre devis est en route."></div>` -> animated confirmation modal.
 
-### F. Dynamic Prefill Tokens & Webhooks
+### F. Dynamic Prefill Tokens, Anti-Spam & Webhooks
 - Inline tokens inside CF7 form HTML: `{{post:title}}`, `{{post:url}}`, `{{acf:field}}`, `{{woo:price}}`, `{{user:email}}`, `{{user:first_name}}`, `{{query:utm_source|Direct}}`, `{{date:Y}}`.
 - URL prefill on a tag: `[text* source default:query]` reads `?source=...` from the URL.
+- **Anti-Spam (`CF7P_Antispam`)**:
+  - **Cloudflare Turnstile**: Configure keys under **Contact > Anti-Spam CF7 Pro** (loaded strictly on pages with a form). Automatically injected before `[submit]`, or place `[cf7p_turnstile]` explicitly at a custom position.
+  - **Smart reCAPTCHA Optimizer**: Blocks CF7's Google reCAPTCHA script on all pages without forms.
+  - **Zero-JS Invisible Shield**: Honeypot + cryptographic HMAC time-trap + IP rate-limiting active by default.
 - **JSON Webhook (n8n, Make, Zapier, CRM)**: In the Contact Form 7 **Additional Settings** tab, add:
   ```text
   cf7p_webhook: https://hook.eu1.make.com/your-webhook-id

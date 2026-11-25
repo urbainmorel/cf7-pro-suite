@@ -1,6 +1,6 @@
 # CF7 Pro Suite + Universal AI Form Authoring Skill
 
-**100% Free & Open-Source (`v1.0.0`)** (`GPL-2.0-or-later` + `MIT`) — Turn **Contact Form 7** into a **WPForms Pro / Typeform-killer** with **0 bytes loaded on pages without a form**, plus a Universal AI Agent Skill for generating and validating multi-step, conditional, and calculator forms in seconds.
+**100% Free & Open-Source (`v1.1.0`)** (`GPL-2.0-or-later` + `MIT`) — Turn **Contact Form 7** into a **WPForms Pro / Typeform-killer** with **0 bytes loaded on pages without a form**, plus a Universal AI Agent Skill for generating and validating multi-step, conditional, and calculator forms in seconds.
 
 ---
 
@@ -8,6 +8,8 @@
 
 | Feature | How it works | Overhead on non-form pages |
 | :--- | :--- | :--- |
+| **Cloudflare Turnstile & Smart reCAPTCHA** | Native `[cf7p_turnstile]` (auto or manual) + blocks CF7's heavy reCAPTCHA script on non-form pages | 0 bytes |
+| **Zero-JS Anti-Spam Shield** | Invisible Honeypot + Cryptographic HMAC Time-Trap + IP Rate-Limiting | 0 bytes |
 | **Multi-Step Wizard** | Wrap steps in `<div data-cf7p-step="Step Name">` — auto progress bar & step validation | 0 bytes |
 | **Conditional Logic** | `data-cf7p-show-if` / `data-cf7p-hide-if` + **PHP `wpcf7_validate` exemption** for hidden required fields | 0 bytes |
 | **Live Quote Calculator** | Safe math parser (`data-cf7p-calc`) with `round()`, `min()`, `max()` & hidden input sync | 0 bytes |

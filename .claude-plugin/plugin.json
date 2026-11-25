@@ -1,6 +1,6 @@
 {
   "name": "cf7-pro-suite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Universal AI Agent Skill for building Contact Form 7 Pro Suite forms (multi-step, conditional logic, live calculators, UI cards, webhooks).",
   "author": {
     "name": "Morel Urbain",

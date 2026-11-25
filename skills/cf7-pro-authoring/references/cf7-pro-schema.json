@@ -1,7 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CF7 Pro Suite Attribute & Tag Reference",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "shortcodes": {
+    "[cf7p_turnstile]": "Explicit placement for Cloudflare Turnstile widget (auto-injected before [submit] if omitted)"
+  },
   "attributes": {
     "data-cf7p-step": "Step label string to split the form into a multi-step wizard",
     "data-cf7p-show-if": "Conditional expression using field names and operators (=, !=, *=, >, >=, <, <=, &&, ||)",

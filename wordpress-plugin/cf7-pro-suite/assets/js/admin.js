@@ -44,6 +44,10 @@
 				label: '+ WhatsApp après envoi',
 				code: '\n<div data-cf7p-whatsapp="33600000000" data-cf7p-whatsapp-template="Bonjour, je suis {nom} ({email})."></div>\n',
 			},
+			{
+				label: '+ Cloudflare Turnstile',
+				code: '\n[cf7p_turnstile]\n',
+			},
 		];
 
 		snippets.forEach( ( item ) => {

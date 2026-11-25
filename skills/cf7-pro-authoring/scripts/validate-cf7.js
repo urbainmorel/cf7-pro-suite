@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 
 const CF7_TAG_RE = /\[([a-zA-Z0-9_-]+\*?)(?:\s+([^\]]*))?\]/g;
-const CF7_SKIP_NAMES = new Set(['submit', 'acceptance']);
+const CF7_SKIP_NAMES = new Set(['submit', 'acceptance', 'cf7p_turnstile']);
 const CALC_FUNCS = new Set(['round', 'min', 'max']);
 
 function extractCf7Fields(markup) {
