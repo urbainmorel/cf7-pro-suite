@@ -109,11 +109,11 @@ function validateCf7Markup(markup, label) {
     }
   }
 
-  const targetRe = /data-cf7p-target-input="([^"]+)"/g;
+  const targetRe = /data-cf7p-(?:target-input|slot-target)="([^"]+)"/g;
   while ((m = targetRe.exec(markup)) !== null) {
     const target = m[1];
     if (!fields.has(target)) {
-      errors.push(`data-cf7p-target-input="${target}" does not match any [hidden ${target}] or input field`);
+      errors.push(`Target attribute "${target}" does not match any [hidden ${target}] or input field`);
     }
   }
 

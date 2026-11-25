@@ -48,6 +48,34 @@
 				label: '+ Cloudflare Turnstile',
 				code: '\n[cf7p_turnstile]\n',
 			},
+			{
+				label: '+ Téléphone Intelligent',
+				code: '\n<div class="cf7p-smart-phone" data-cf7p-default-country="FR">\n  [tel* telephone]\n</div>\n',
+			},
+			{
+				label: '+ Signature Tactile',
+				code: '\n<div class="cf7p-signature">\n  [hidden signature_client]\n</div>\n',
+			},
+			{
+				label: '+ Notation Étoiles',
+				code: '\n<div class="cf7p-rating" data-cf7p-max="5">\n  [hidden note_client]\n</div>\n',
+			},
+			{
+				label: '+ Date & Créneaux RDV',
+				code: '\n<div class="cf7p-smart-date" data-cf7p-disable-days="0" data-cf7p-slots="09:00,11:00,14:30,16:30" data-cf7p-slot-target="heure_rdv">\n  [date* date_rdv]\n  [hidden heure_rdv]\n</div>\n',
+			},
+			{
+				label: '+ Masque Saisie',
+				code: '\n<div data-cf7p-mask="999 999 999 99999">\n  [text siret placeholder "123 456 789 00012"]\n</div>\n',
+			},
+			{
+				label: '+ Répéteur Dynamique',
+				code: '\n<div data-cf7p-repeater="+ Ajouter une ligne" data-cf7p-target-input="lignes_details">\n  <div class="cf7p-repeater-row">\n    <input type="text" placeholder="Nom" />\n    <input type="text" placeholder="Rôle" />\n  </div>\n</div>\n[hidden lignes_details]\n',
+			},
+			{
+				label: '+ Switch Toggle',
+				code: '\n<div class="cf7p-toggle">\n  [checkbox option_vip use_label_element "Activer le suivi VIP"]\n</div>\n',
+			},
 		];
 
 		snippets.forEach( ( item ) => {

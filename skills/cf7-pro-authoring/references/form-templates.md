@@ -76,3 +76,59 @@
   </div>
 </div>
 ```
+
+## 3. Smart Contract & Appointment Form (Smart Phone + Date/Time Slots + Star Rating + Digital Signature + Repeater)
+
+```html
+<div class="cf7p-theme-glass">
+  <div data-cf7p-step="Rendez-vous &amp; Contact">
+    <label>Nom complet [text* nom placeholder "Morel Urbain"]</label>
+
+    <p>Téléphone WhatsApp (Indicatif auto-détecté)</p>
+    <div class="cf7p-smart-phone">
+      [tel* telephone placeholder "6 12 34 56 78"]
+    </div>
+
+    <p>Date &amp; Créneau souhaités (Fermé le dimanche)</p>
+    <div class="cf7p-smart-date" data-cf7p-disable-days="0" data-cf7p-slots="09:00,11:00,14:30,16:30" data-cf7p-slot-target="heure_rdv">
+      [date* date_rdv]
+      [hidden heure_rdv]
+    </div>
+  </div>
+
+  <div data-cf7p-step="Participants &amp; Avis">
+    <p>Participants supplémentaires</p>
+    <div data-cf7p-repeater="+ Ajouter un participant" data-cf7p-target-input="participants">
+      <div class="cf7p-repeater-row">
+        <input type="text" placeholder="Nom du participant" />
+        <input type="text" placeholder="Fonction" />
+      </div>
+    </div>
+    [hidden participants]
+
+    <p>Note de satisfaction</p>
+    <div class="cf7p-rating" data-cf7p-max="5">
+      [hidden note_client]
+    </div>
+
+    <div data-cf7p-show-if="note_client<=3">
+      <div data-cf7p-maxlength="250">
+        <label>Comment améliorer notre service ? [textarea amelioration]</label>
+      </div>
+    </div>
+  </div>
+
+  <div data-cf7p-step="Signature &amp; Validation">
+    <p>Signature électronique du demandeur</p>
+    <div class="cf7p-signature">
+      [hidden signature_client]
+    </div>
+
+    <div class="cf7p-toggle">
+      [checkbox accord_rgpd use_label_element "J'accepte les conditions de traitement"]
+    </div>
+
+    [submit class:cf7p-btn "Signer et Confirmer"]
+  </div>
+</div>
+```

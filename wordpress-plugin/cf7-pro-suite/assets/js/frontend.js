@@ -445,11 +445,370 @@
 		} );
 	}
 
+	// --- Smart Fields (v1.2.0) ---
+	const PHONE_COUNTRIES = [
+		{ code: 'FR', dial: '+33', flag: '🇫🇷', tz: 'Europe/Paris' },
+		{ code: 'BJ', dial: '+229', flag: '🇧🇯', tz: 'Africa/Porto-Novo' },
+		{ code: 'CI', dial: '+225', flag: '🇨🇮', tz: 'Africa/Abidjan' },
+		{ code: 'SN', dial: '+221', flag: '🇸🇳', tz: 'Africa/Dakar' },
+		{ code: 'TG', dial: '+228', flag: '🇹🇬', tz: 'Africa/Lome' },
+		{ code: 'CM', dial: '+237', flag: '🇨🇲', tz: 'Africa/Douala' },
+		{ code: 'BF', dial: '+226', flag: '🇧🇫', tz: 'Africa/Ouagadougou' },
+		{ code: 'ML', dial: '+223', flag: '🇲🇱', tz: 'Africa/Bamako' },
+		{ code: 'GA', dial: '+241', flag: '🇬🇦', tz: 'Africa/Libreville' },
+		{ code: 'CD', dial: '+243', flag: '🇨🇩', tz: 'Africa/Kinshasa' },
+		{ code: 'MA', dial: '+212', flag: '🇲🇦', tz: 'Africa/Casablanca' },
+		{ code: 'TN', dial: '+216', flag: '🇹🇳', tz: 'Africa/Tunis' },
+		{ code: 'DZ', dial: '+213', flag: '🇩🇿', tz: 'Africa/Algiers' },
+		{ code: 'BE', dial: '+32', flag: '🇧🇪', tz: 'Europe/Brussels' },
+		{ code: 'CH', dial: '+41', flag: '🇨🇭', tz: 'Europe/Zurich' },
+		{ code: 'CA', dial: '+1', flag: '🇨🇦', tz: 'America/Toronto' },
+		{ code: 'US', dial: '+1', flag: '🇺🇸', tz: 'America/New_York' },
+		{ code: 'GB', dial: '+44', flag: '🇬🇧', tz: 'Europe/London' },
+		{ code: 'DE', dial: '+49', flag: '🇩🇪', tz: 'Europe/Berlin' },
+		{ code: 'ES', dial: '+34', flag: '🇪🇸', tz: 'Europe/Madrid' },
+		{ code: 'IT', dial: '+39', flag: '🇮🇹', tz: 'Europe/Rome' },
+	];
+
+	function detectCountryCode( fallbackCode ) {
+		if ( fallbackCode ) return fallbackCode.toUpperCase();
+		try {
+			const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+			const match = PHONE_COUNTRIES.find( ( c ) => c.tz === tz );
+			if ( match ) return match.code;
+		} catch ( _ ) {}
+		return 'FR';
+	}
+
+	function initSmartPhones( form ) {
+		form.querySelectorAll( '.cf7p-smart-phone' ).forEach( ( box ) => {
+			const telInput = box.querySelector( 'input[type="tel"], input[type="text"]' );
+			if ( ! telInput || box.dataset.cf7pPhoneInit === '1' ) return;
+			box.dataset.cf7pPhoneInit = '1';
+
+			const defaultCode = detectCountryCode( box.getAttribute( 'data-cf7p-default-country' ) );
+			const row = document.createElement( 'div' );
+			row.className = 'cf7p-phone-row';
+
+			const select = document.createElement( 'select' );
+			select.className = 'cf7p-phone-country';
+			select.setAttribute( 'aria-label', 'Indicatif pays' );
+			PHONE_COUNTRIES.forEach( ( c ) => {
+				const opt = document.createElement( 'option' );
+				opt.value = c.dial;
+				opt.textContent = `${ c.flag } ${ c.code } (${ c.dial })`;
+				if ( c.code === defaultCode ) opt.selected = true;
+				select.appendChild( opt );
+			} );
+
+			const localInput = document.createElement( 'input' );
+			localInput.type = 'tel';
+			localInput.className = 'cf7p-phone-local';
+			localInput.placeholder = telInput.placeholder || '6 12 34 56 78';
+			localInput.required = telInput.required;
+
+			telInput.type = 'hidden';
+			telInput.parentNode.insertBefore( row, telInput );
+			row.appendChild( select );
+			row.appendChild( localInput );
+
+			const sync = () => {
+				const digits = localInput.value.replace( /[^\d]/g, '' );
+				const cleanLocal = digits.replace( /^0+(?=\d)/, '' );
+				telInput.value = cleanLocal ? `${ select.value } ${ cleanLocal }` : '';
+				telInput.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+			};
+
+			select.addEventListener( 'change', sync );
+			localInput.addEventListener( 'input', sync );
+		} );
+	}
+
+	function initSignatures( form ) {
+		form.querySelectorAll( '.cf7p-signature' ).forEach( ( box ) => {
+			const target = box.querySelector( 'input[type="hidden"], input[type="text"]' );
+			if ( ! target || box.dataset.cf7pSigInit === '1' ) return;
+			box.dataset.cf7pSigInit = '1';
+
+			const canvas = document.createElement( 'canvas' );
+			canvas.className = 'cf7p-sig-canvas';
+			canvas.width = 520;
+			canvas.height = 170;
+
+			const clearBtn = document.createElement( 'button' );
+			clearBtn.type = 'button';
+			clearBtn.className = 'cf7p-sig-clear';
+			clearBtn.textContent = 'Effacer la signature';
+
+			box.appendChild( canvas );
+			box.appendChild( clearBtn );
+
+			const ctx = canvas.getContext( '2d' );
+			ctx.strokeStyle = getComputedStyle( box ).color || '#0f172a';
+			ctx.lineWidth = 2.4;
+			ctx.lineCap = 'round';
+			ctx.lineJoin = 'round';
+
+			let drawing = false;
+			const getPos = ( e ) => {
+				const rect = canvas.getBoundingClientRect();
+				return {
+					x: ( ( e.clientX - rect.left ) / rect.width ) * canvas.width,
+					y: ( ( e.clientY - rect.top ) / rect.height ) * canvas.height,
+				};
+			};
+
+			canvas.addEventListener( 'pointerdown', ( e ) => {
+				drawing = true;
+				canvas.setPointerCapture( e.pointerId );
+				const p = getPos( e );
+				ctx.beginPath();
+				ctx.moveTo( p.x, p.y );
+			} );
+
+			canvas.addEventListener( 'pointermove', ( e ) => {
+				if ( ! drawing ) return;
+				const p = getPos( e );
+				ctx.lineTo( p.x, p.y );
+				ctx.stroke();
+			} );
+
+			const finish = () => {
+				if ( ! drawing ) return;
+				drawing = false;
+				target.value = canvas.toDataURL( 'image/png' );
+				target.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+			};
+			canvas.addEventListener( 'pointerup', finish );
+			canvas.addEventListener( 'pointercancel', finish );
+
+			clearBtn.addEventListener( 'click', () => {
+				ctx.clearRect( 0, 0, canvas.width, canvas.height );
+				target.value = '';
+				target.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+			} );
+		} );
+	}
+
+	function initRatings( form ) {
+		form.querySelectorAll( '.cf7p-rating' ).forEach( ( box ) => {
+			const target = box.querySelector( 'input[type="hidden"], input[type="number"], input[type="text"]' );
+			if ( ! target || box.dataset.cf7pRateInit === '1' ) return;
+			box.dataset.cf7pRateInit = '1';
+
+			target.style.display = 'none';
+			const max = parseInt( box.getAttribute( 'data-cf7p-max' ) || '5', 10 );
+			const starsWrap = document.createElement( 'div' );
+			starsWrap.className = 'cf7p-stars';
+			const buttons = [];
+
+			const paint = ( val ) => {
+				buttons.forEach( ( b, i ) => {
+					b.classList.toggle( 'is-active', i < val );
+				} );
+			};
+
+			for ( let i = 1; i <= max; i++ ) {
+				const btn = document.createElement( 'button' );
+				btn.type = 'button';
+				btn.className = 'cf7p-star-btn';
+				btn.textContent = '★';
+				btn.setAttribute( 'aria-label', `${ i } / ${ max }` );
+				btn.addEventListener( 'mouseenter', () => paint( i ) );
+				btn.addEventListener( 'click', () => {
+					target.value = String( i );
+					paint( i );
+					target.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+					target.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+				} );
+				buttons.push( btn );
+				starsWrap.appendChild( btn );
+			}
+
+			starsWrap.addEventListener( 'mouseleave', () => paint( parseInt( target.value || '0', 10 ) ) );
+			box.appendChild( starsWrap );
+			paint( parseInt( target.value || '0', 10 ) );
+		} );
+	}
+
+	function initSmartDates( form ) {
+		form.querySelectorAll( '.cf7p-smart-date' ).forEach( ( box ) => {
+			const dateInput = box.querySelector( 'input[type="date"]' );
+			if ( ! dateInput || box.dataset.cf7pDateInit === '1' ) return;
+			box.dataset.cf7pDateInit = '1';
+
+			if ( box.getAttribute( 'data-cf7p-min-today' ) !== 'false' ) {
+				dateInput.min = new Date().toISOString().split( 'T' )[ 0 ];
+			}
+
+			const disabledDays = ( box.getAttribute( 'data-cf7p-disable-days' ) || '' )
+				.split( ',' )
+				.map( ( d ) => d.trim() )
+				.filter( ( d ) => d !== '' )
+				.map( Number );
+
+			if ( disabledDays.length ) {
+				const warn = document.createElement( 'small' );
+				warn.className = 'cf7p-date-warn';
+				warn.hidden = true;
+				warn.textContent = 'Ce jour est fermé. Veuillez choisir une autre date.';
+				box.appendChild( warn );
+
+				dateInput.addEventListener( 'change', () => {
+					if ( ! dateInput.value ) return;
+					const day = new Date( dateInput.value + 'T12:00:00' ).getDay();
+					if ( disabledDays.includes( day ) ) {
+						dateInput.value = '';
+						warn.hidden = false;
+					} else {
+						warn.hidden = true;
+					}
+				} );
+			}
+
+			const slotsAttr = box.getAttribute( 'data-cf7p-slots' );
+			const slotTargetName = box.getAttribute( 'data-cf7p-slot-target' );
+			if ( slotsAttr && slotTargetName ) {
+				const targetInput = form.querySelector( `input[name="${ slotTargetName }"]` );
+				const slotsWrap = document.createElement( 'div' );
+				slotsWrap.className = 'cf7p-slots';
+				slotsAttr.split( ',' ).map( ( s ) => s.trim() ).filter( Boolean ).forEach( ( slot ) => {
+					const pill = document.createElement( 'button' );
+					pill.type = 'button';
+					pill.className = 'cf7p-slot-btn';
+					pill.textContent = slot;
+					pill.addEventListener( 'click', () => {
+						slotsWrap.querySelectorAll( '.cf7p-slot-btn' ).forEach( ( p ) => p.classList.remove( 'is-selected' ) );
+						pill.classList.add( 'is-selected' );
+						if ( targetInput ) {
+							targetInput.value = slot;
+							targetInput.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+						}
+					} );
+					slotsWrap.appendChild( pill );
+				} );
+				box.appendChild( slotsWrap );
+			}
+		} );
+	}
+
+	function initMasks( form ) {
+		form.querySelectorAll( '[data-cf7p-mask]' ).forEach( ( holder ) => {
+			const mask = holder.getAttribute( 'data-cf7p-mask' );
+			const input = holder.matches( 'input' ) ? holder : holder.querySelector( 'input[type="text"], input[type="tel"]' );
+			if ( ! input || ! mask || input.dataset.cf7pMaskInit === '1' ) return;
+			input.dataset.cf7pMaskInit = '1';
+
+			input.addEventListener( 'input', () => {
+				const raw = input.value.replace( /[^a-zA-Z0-9]/g, '' );
+				let out = '';
+				let ri = 0;
+				for ( let mi = 0; mi < mask.length && ri < raw.length; mi++ ) {
+					const m = mask[ mi ];
+					const ch = raw[ ri ];
+					if ( m === '9' ) {
+						if ( /\d/.test( ch ) ) { out += ch; ri++; } else { ri++; mi--; }
+					} else if ( m === 'A' ) {
+						if ( /[a-zA-Z]/.test( ch ) ) { out += ch.toUpperCase(); ri++; } else { ri++; mi--; }
+					} else if ( m === '*' ) {
+						out += ch; ri++;
+					} else {
+						out += m;
+					}
+				}
+				input.value = out;
+			} );
+		} );
+	}
+
+	function initRepeaters( form ) {
+		form.querySelectorAll( '[data-cf7p-repeater]' ).forEach( ( box ) => {
+			if ( box.dataset.cf7pRepInit === '1' ) return;
+			box.dataset.cf7pRepInit = '1';
+
+			const label = box.getAttribute( 'data-cf7p-repeater' ) || '+ Ajouter une ligne';
+			const targetName = box.getAttribute( 'data-cf7p-target-input' );
+			const rowTemplate = box.querySelector( '.cf7p-repeater-row' );
+			if ( ! rowTemplate ) return;
+
+			const rowsContainer = document.createElement( 'div' );
+			rowsContainer.className = 'cf7p-repeater-rows';
+			rowTemplate.parentNode.insertBefore( rowsContainer, rowTemplate );
+			rowsContainer.appendChild( rowTemplate );
+
+			const addBtn = document.createElement( 'button' );
+			addBtn.type = 'button';
+			addBtn.className = 'cf7p-btn cf7p-repeater-add';
+			addBtn.textContent = label;
+			box.appendChild( addBtn );
+
+			const syncRepeater = () => {
+				if ( ! targetName ) return;
+				const target = form.querySelector( `input[name="${ targetName }"], textarea[name="${ targetName }"]` );
+				if ( ! target ) return;
+				const lines = Array.from( rowsContainer.querySelectorAll( '.cf7p-repeater-row' ) ).map( ( r, idx ) => {
+					const vals = Array.from( r.querySelectorAll( 'input, select' ) )
+						.map( ( inp ) => inp.value.trim() )
+						.filter( Boolean );
+					return vals.length ? `#${ idx + 1 }: ${ vals.join( ' | ' ) }` : '';
+				} ).filter( Boolean );
+				target.value = lines.join( '\n' );
+			};
+
+			addBtn.addEventListener( 'click', () => {
+				const clone = rowTemplate.cloneNode( true );
+				clone.querySelectorAll( 'input, select' ).forEach( ( inp ) => {
+					inp.value = '';
+					inp.removeAttribute( 'name' );
+				} );
+				const del = document.createElement( 'button' );
+				del.type = 'button';
+				del.className = 'cf7p-repeater-del';
+				del.textContent = '×';
+				del.addEventListener( 'click', () => {
+					clone.remove();
+					syncRepeater();
+				} );
+				clone.appendChild( del );
+				rowsContainer.appendChild( clone );
+			} );
+
+			rowsContainer.addEventListener( 'input', syncRepeater );
+			rowsContainer.addEventListener( 'change', syncRepeater );
+		} );
+	}
+
+	function initMaxLengthCounters( form ) {
+		form.querySelectorAll( '[data-cf7p-maxlength]' ).forEach( ( box ) => {
+			const max = parseInt( box.getAttribute( 'data-cf7p-maxlength' ) || '0', 10 );
+			const field = box.querySelector( 'textarea, input[type="text"]' );
+			if ( ! field || ! max || box.dataset.cf7pMaxInit === '1' ) return;
+			box.dataset.cf7pMaxInit = '1';
+
+			field.maxLength = max;
+			const counter = document.createElement( 'small' );
+			counter.className = 'cf7p-char-counter';
+			const sync = () => {
+				counter.textContent = `${ field.value.length } / ${ max } caractères`;
+			};
+			box.appendChild( counter );
+			field.addEventListener( 'input', sync );
+			sync();
+		} );
+	}
+
 	function bootForm( wrapper ) {
 		const form = wrapper.querySelector( 'form.wpcf7-form' );
 		if ( ! form || form.dataset.cf7pBooted === '1' ) return;
 		form.dataset.cf7pBooted = '1';
 
+		initSmartPhones( form );
+		initSignatures( form );
+		initRatings( form );
+		initSmartDates( form );
+		initMasks( form );
+		initRepeaters( form );
+		initMaxLengthCounters( form );
 		initUiEnhancers( form );
 		initMultiStep( form );
 		initSubmissionHandlers( wrapper, form );

@@ -1,6 +1,6 @@
 # CF7 Pro Suite + Universal AI Form Authoring Skill
 
-**100% Free & Open-Source (`v1.1.0`)** (`GPL-2.0-or-later` + `MIT`) — Turn **Contact Form 7** into a **WPForms Pro / Typeform-killer** with **0 bytes loaded on pages without a form**, plus a Universal AI Agent Skill for generating and validating multi-step, conditional, and calculator forms in seconds.
+**100% Free & Open-Source (`v1.2.0`)** (`GPL-2.0-or-later` + `MIT`) — Turn **Contact Form 7** into a **WPForms Pro / Typeform-killer** with **0 bytes loaded on pages without a form**, plus a Universal AI Agent Skill for generating and validating multi-step, conditional, smart-field, and calculator forms in seconds.
 
 ---
 
@@ -8,6 +8,9 @@
 
 | Feature | How it works | Overhead on non-form pages |
 | :--- | :--- | :--- |
+| **Smart International Phone** | `.cf7p-smart-phone` adds country flags, dial codes & timezone auto-detection (0 external APIs) | 0 bytes |
+| **Digital Signature, Star Rating & Masks** | `.cf7p-signature` (touch/mouse canvas), `.cf7p-rating`, `data-cf7p-mask`, `.cf7p-toggle`, `data-cf7p-maxlength` | 0 bytes |
+| **Smart Date, Slots & Repeater** | `.cf7p-smart-date` (block closed days + time slot pills) & `data-cf7p-repeater` dynamic rows | 0 bytes |
 | **Cloudflare Turnstile & Smart reCAPTCHA** | Native `[cf7p_turnstile]` (auto or manual) + blocks CF7's heavy reCAPTCHA script on non-form pages | 0 bytes |
 | **Zero-JS Anti-Spam Shield** | Invisible Honeypot + Cryptographic HMAC Time-Trap + IP Rate-Limiting | 0 bytes |
 | **Multi-Step Wizard** | Wrap steps in `<div data-cf7p-step="Step Name">` — auto progress bar & step validation | 0 bytes |

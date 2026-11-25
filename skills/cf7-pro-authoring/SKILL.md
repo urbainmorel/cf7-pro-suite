@@ -51,10 +51,17 @@ The runtime automatically builds the animated progress bar, step pills, `← Pr�
 - Supported operations: `+`, `-`, `*`, `/`, `()`, `round(x)`, `min(a,b)`, `max(a,b)`, plus any CF7 field name. Numeric values inside radio/checkbox labels (e.g., `"SEO (+450€)"`) are extracted automatically!
 - Always pair `data-cf7p-target-input="total_estime"` with `[hidden total_estime]` so the calculated amount is included in emails, CSV exports, and webhooks.
 
-### E. Interactive Controls & Post-Submission Actions
+### E. Interactive Controls, Smart Fields (v1.2) & Post-Submission Actions
 - `.cf7p-cards` around `[radio ...]` or `[checkbox ...]` -> turns options into clickable glowing UI cards.
 - `.cf7p-dropzone` around `[file ...]` -> Drag & Drop upload box with filename/size display.
 - `.cf7p-range` around `[range ...]` (with optional `data-cf7p-suffix=" €"`) -> live numeric pill next to the slider.
+- **Smart International Phone (`.cf7p-smart-phone`)**: Wraps `[tel* telephone]` (optional `data-cf7p-default-country="BJ"` or auto-detected via browser timezone) -> adds country flag + dial code dropdown and formats full international number (`+229 ...`).
+- **Digital Signature Pad (`.cf7p-signature`)**: Wraps `[hidden signature_client]` -> responsive touch/mouse HTML5 `<canvas>` saved as PNG data URL.
+- **Star Rating (`.cf7p-rating`)**: Wraps `[hidden note_client]` (`data-cf7p-max="5"`) -> interactive stars compatible with `data-cf7p-show-if="note_client<=3"`.
+- **Smart Date & Time Slots (`.cf7p-smart-date`)**: Wraps `[date* date_rdv]` + `[hidden heure_rdv]` (`data-cf7p-disable-days="0,6"`, `data-cf7p-slots="09:00,11:00,14:30"`, `data-cf7p-slot-target="heure_rdv"`).
+- **Input Mask (`data-cf7p-mask="999 999 999 99999"`)**: Formats digits (`9`), letters (`A`), or alphanumeric (`*`) live.
+- **Dynamic Repeater (`data-cf7p-repeater="+ Ajouter" data-cf7p-target-input="lignes"`)**: Clones `.cf7p-repeater-row` and serializes all rows into `[hidden lignes]`.
+- **iOS Toggle Switch (`.cf7p-toggle`)** & **Character Counter (`data-cf7p-maxlength="300"`)**.
 - `<div data-cf7p-whatsapp="33600000000" data-cf7p-whatsapp-template="Bonjour, je suis {nom}. Devis : {total_estime}"></div>` -> opens pre-filled WhatsApp message after successful submission.
 - `<div data-cf7p-redirect="https://example.com/merci"></div>` -> redirects after `wpcf7mailsent`.
 - `<div data-cf7p-success-modal="Merci ! Votre devis est en route."></div>` -> animated confirmation modal.
