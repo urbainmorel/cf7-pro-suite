@@ -135,3 +135,16 @@ Always validate generated CF7 markup before delivery:
 ```bash
 node scripts/validate-cf7.js --file my-form.html
 ```
+
+---
+
+## 5. WordPress MCP Adapter & Abilities API (`cf7p/v1`)
+
+When connected to a WordPress site running `WordPress/mcp-adapter` (or REST `/wp-json/cf7p/v1/*`), 7 MCP-public abilities expose 100% of CF7 Pro Suite:
+- `cf7p/list-forms` (`GET /cf7p/v1/forms`) — list all forms, shortcodes & webhook URLs
+- `cf7p/get-form` (`GET /cf7p/v1/forms/{id}`) — inspect form markup, mail config & additional settings
+- `cf7p/upsert-form` (`POST /cf7p/v1/forms`) — create or update any CF7 Pro form + `webhook_url`
+- `cf7p/delete-form` (`DELETE /cf7p/v1/forms/{id}`) — delete a form
+- `cf7p/list-entries` (`GET /cf7p/v1/entries`) — list stored submissions (`limit`, `form_id`, `search`)
+- `cf7p/get-antispam-settings` (`GET /cf7p/v1/antispam`) — read Turnstile / reCAPTCHA / shield config
+- `cf7p/update-antispam-settings` (`POST /cf7p/v1/antispam`) — configure Turnstile keys, theme & rate limits

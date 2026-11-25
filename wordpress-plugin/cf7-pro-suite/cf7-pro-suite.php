@@ -3,7 +3,7 @@
  * Plugin Name:       CF7 Pro Suite — Multi-Step, Conditional, Calculator & Webhooks
  * Plugin URI:        https://github.com/urbainmorel/cf7-pro-suite
  * Description:       Supercharges Contact Form 7 with multi-step wizards, conditional logic (client + server validation), live quote calculators, clickable UI cards, drag-and-drop uploads, WhatsApp/URL redirects, dynamic prefill, local entries ledger, and JSON webhooks — with 0 bytes loaded on pages without a form.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            Morel Urbain
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CF7P_VERSION', '1.2.0' );
+define( 'CF7P_VERSION', '1.3.0' );
 define( 'CF7P_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CF7P_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -25,11 +25,13 @@ require_once CF7P_PLUGIN_DIR . 'includes/class-cf7p-dynamic-prefill.php';
 require_once CF7P_PLUGIN_DIR . 'includes/class-cf7p-conditional-validator.php';
 require_once CF7P_PLUGIN_DIR . 'includes/class-cf7p-webhook-entries.php';
 require_once CF7P_PLUGIN_DIR . 'includes/class-cf7p-antispam.php';
+require_once CF7P_PLUGIN_DIR . 'includes/class-cf7p-mcp-abilities.php';
 
 CF7P_Dynamic_Prefill::init();
 CF7P_Conditional_Validator::init();
 CF7P_Webhook_Entries::init();
 CF7P_Antispam::init();
+CF7P_MCP_Abilities::init();
 
 /**
  * Register frontend assets without enqueueing globally (0 bytes on pages without CF7).

@@ -1,6 +1,6 @@
 {
   "name": "cf7-pro-suite",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Open-source Contact Form 7 Pro Suite (Multi-step, Conditional Logic, Live Calculator, Cards, Dropzone, WhatsApp, Local Entries & Webhooks) + Universal AI Skill",
   "scripts": {
     "validate": "node skills/cf7-pro-authoring/scripts/validate-cf7.js --skill --path skills/cf7-pro-authoring/SKILL.md && node skills/cf7-pro-authoring/scripts/validate-cf7.js --skill --path skills/cf7-pro-authoring/references/form-templates.md && node skills/cf7-pro-authoring/scripts/validate-cf7.js --skill --path README.md"

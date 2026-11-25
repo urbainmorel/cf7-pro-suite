@@ -1,6 +1,6 @@
 # CF7 Pro Suite + Universal AI Form Authoring Skill
 
-**100% Free & Open-Source (`v1.2.0`)** (`GPL-2.0-or-later` + `MIT`) — Turn **Contact Form 7** into a **WPForms Pro / Typeform-killer** with **0 bytes loaded on pages without a form**, plus a Universal AI Agent Skill for generating and validating multi-step, conditional, smart-field, and calculator forms in seconds.
+**100% Free & Open-Source (`v1.3.0`)** (`GPL-2.0-or-later` + `MIT`) — Turn **Contact Form 7** into a **WPForms Pro / Typeform-killer** with **0 bytes loaded on pages without a form**, 100% controllable via **WordPress MCP Adapter / Abilities API**, plus a Universal AI Agent Skill for generating and validating multi-step, conditional, smart-field, and calculator forms in seconds.
 
 ---
 
@@ -99,3 +99,19 @@ npm run validate
 
 - **WordPress Plugin (`wordpress-plugin/`)**: Licensed under **GPL-2.0-or-later** (`LICENSE-GPL-2.0.txt`).
 - **AI Skill, Schemas, Installers & Validator (`skills/`, `install.*`, `plugin.json`)**: Dual-licensed under **MIT** (`LICENSE-MIT.txt`) and **GPL-2.0-or-later**.
+
+---
+
+## 100% Controllable via WordPress MCP Adapter (`cf7p/v1`)
+
+Both **WordPress Abilities API (`wp_register_ability` with `mcp.public = true`)** and mirrored **REST API (`/wp-json/cf7p/v1/*`)** routes are built in:
+
+| Ability / MCP Tool | REST Endpoint | Purpose |
+| :--- | :--- | :--- |
+| `cf7p/list-forms` | `GET /wp-json/cf7p/v1/forms` | List all Contact Form 7 forms, shortcodes & webhook URLs |
+| `cf7p/get-form` | `GET /wp-json/cf7p/v1/forms/{id}` | Read form HTML, mail config & additional settings |
+| `cf7p/upsert-form` | `POST /wp-json/cf7p/v1/forms` | Create or update a CF7 Pro form + `webhook_url` |
+| `cf7p/delete-form` | `DELETE /wp-json/cf7p/v1/forms/{id}` | Delete a CF7 form |
+| `cf7p/list-entries` | `GET /wp-json/cf7p/v1/entries` | Query stored submissions (`limit`, `form_id`, `search`) |
+| `cf7p/get-antispam-settings` | `GET /wp-json/cf7p/v1/antispam` | Read Turnstile / reCAPTCHA / shield settings |
+| `cf7p/update-antispam-settings` | `POST /wp-json/cf7p/v1/antispam` | Update Cloudflare Turnstile keys, theme & rate limits |
