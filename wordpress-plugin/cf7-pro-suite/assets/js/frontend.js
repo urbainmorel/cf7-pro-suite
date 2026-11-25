@@ -472,6 +472,9 @@
 
 	function detectCountryCode( fallbackCode ) {
 		if ( fallbackCode ) return fallbackCode.toUpperCase();
+		if ( typeof window.cf7pGeoCountry === 'string' && /^[A-Z]{2}$/.test( window.cf7pGeoCountry ) ) {
+			return window.cf7pGeoCountry;
+		}
 		try {
 			const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 			const match = PHONE_COUNTRIES.find( ( c ) => c.tz === tz );

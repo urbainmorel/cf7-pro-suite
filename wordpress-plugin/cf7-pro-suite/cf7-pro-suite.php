@@ -57,6 +57,18 @@ add_action( 'wp_enqueue_scripts', static function () {
 add_filter( 'wpcf7_form_elements', static function ( string $html ): string {
 	wp_enqueue_style( 'cf7p-frontend' );
 	wp_enqueue_script( 'cf7p-frontend' );
+
+	if ( ! empty( $_SERVER['HTTP_CF_IPCOUNTRY'] ) ) {
+		$country = strtoupper( sanitize_text_field( wp_unslash( (string) $_SERVER['HTTP_CF_IPCOUNTRY'] ) ) );
+		if ( preg_match( '/^[A-Z]{2}$/', $country ) && 'XX' !== $country && 'T1' !== $country ) {
+			wp_add_inline_script(
+				'cf7p-frontend',
+				'window.cf7pGeoCountry = ' . wp_json_encode( $country ) . ';',
+				'before'
+			);
+		}
+	}
+
 	return $html;
 }, 5 );
 
